@@ -1,0 +1,42 @@
+<div class="contanier">
+  <div class="row">
+    <div class="col-md-12">
+      <form #searchForm="ngForm" (ngSubmit)="onSubmit(searchForm)">
+        <div class="form-group">
+          <label>Movies?</label>
+          <input
+            type="text"
+            class="form-control"
+            id="search"
+            name="search"
+            required
+            minlength="3"
+            ngModel
+          />
+          <hr />
+          <button
+            class="btn btn-success"
+            type="submit"
+            [disabled]="!searchForm.valid"
+          >
+            Search
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="contanier">
+  <div class="row" *ngIf="search">
+    <div class="col-md-12">
+      <app-pagination [totalRecords]="search.totalResults" (onPageChange)="displayActivePage($event)"></app-pagination>
+      <app-movies-list [searchResult]="search"></app-movies-list>
+      <app-pagination [totalRecords]="search.totalResults" (onPageChange)="displayActivePage($event)"></app-pagination>
+      <app-alert
+      [message]="search.Error"
+      *ngIf="isError"
+      (close)="onHandleError()"
+    ></app-alert>
+    </div>
+  </div>
+</div>

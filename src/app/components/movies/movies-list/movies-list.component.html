@@ -1,0 +1,49 @@
+<div class="row" *ngIf="isTableVisible && !isDetailVisible" >
+  <div class="col-md-12">
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">id</th>
+          <th scope="col">imdbID</th>
+          <th scope="col">Title</th>
+          <th scope="col">Year</th>
+          <th scope="col">image</th>
+          <th scope="col">Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let movie of searchResult.Search; let i = index">
+          <td scope="row">{{ i + 1 }}</td>
+          <td scope="row">{{ movie.imdbID }}</td>
+          <td scope="row">{{ movie.Title }}</td>
+          <td scope="row">{{ movie.Year }}</td>
+          <td scope="row">
+            <img
+          [src]="movie.Poster"
+          alt="{{ movie.Title }}"
+          class="img-responsive"
+          style="max-height: 50px;"
+          />
+
+          </td>
+          <td scope="row">
+            <button
+              class="btn btn-success"
+              type="button"
+              (click)="onMovieDetails(movie.imdbID)"
+            >
+              Details
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="container" *ngIf="isDetailVisible">
+  <div class="row">
+    <div class="col-md-12">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
