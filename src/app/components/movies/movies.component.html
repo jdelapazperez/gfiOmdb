@@ -29,9 +29,7 @@
 <div class="contanier">
   <div class="row" *ngIf="isVisibleGrid">
     <div class="col-md-12">
-      <app-pagination *ngIf="search.totalResults>0" [totalRecords]="search.totalResults" (onPageChange)="displayActivePage($event)"></app-pagination>
-      <app-movies-list [searchResult]="search"></app-movies-list>
-      <app-pagination *ngIf="search.totalResults>0" [totalRecords]="search.totalResults" (onPageChange)="displayActivePage($event)"></app-pagination>
+      <app-movies-list [searchValue]="searchField" [searchResult]="search"></app-movies-list>
     </div>
   </div>
 </div>

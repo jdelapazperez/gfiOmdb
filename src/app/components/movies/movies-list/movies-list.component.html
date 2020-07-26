@@ -1,5 +1,6 @@
 <div class="row">
-  <div class="col-md-12" *ngIf="isTableVisible">
+  <div class="col-md-12" *ngIf="isTableVisible && !isDetailVisible">
+    <app-pagination *ngIf="searchResult.totalResults>0" [totalRecords]="searchResult.totalResults" (onPageChange)="displayActivePage($event)"></app-pagination>
     <table class="table table-striped">
       <thead class="thead-dark">
         <tr>
@@ -19,6 +20,7 @@
               alt="{{ movie.Title }}"
               class="img-responsive"
               style="max-height: 50px;"
+
             />
           </td>
           <td scope="row">
@@ -33,11 +35,13 @@
         </tr>
       </tbody>
     </table>
+    <app-pagination *ngIf="searchResult.totalResults>0" [totalRecords]="searchResult.totalResults" (onPageChange)="displayActivePage($event)"></app-pagination>
   </div>
   <div class="row" *ngIf="isDetailVisible">
     <div class="col-md-12">
       <app-movies-details
         [movieDetail]="movieDetailResponse"
+        (backEmiter)="onHandleBack()"
       ></app-movies-details>
     </div>
   </div>

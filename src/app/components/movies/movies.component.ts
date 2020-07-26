@@ -33,7 +33,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
     }
 
     this.searchField = form.value.search;
-
+    this.isVisibleGrid = false;
     this.searchMovies(this.searchField, this.activePage);
 
     form.reset();
@@ -64,7 +64,6 @@ export class MoviesComponent implements OnInit, OnDestroy {
           this.isError = true;
           this.isVisibleGrid = false;
           this.messageError = resData.Error;
-          console.log(this.messageError);
         } else {
           this.search = new SearchModel(
             resData.Search,
@@ -79,7 +78,7 @@ export class MoviesComponent implements OnInit, OnDestroy {
       (errorMessage) => {
         console.log('errorMessage');
         console.log(errorMessage);
-        this.search = new SearchModel(undefined, 0, 'False', errorMessage);
+        this.messageError = errorMessage;
         this.isError = true;
         this.isVisibleGrid = false;
       }

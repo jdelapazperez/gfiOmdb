@@ -1,36 +1,62 @@
-<div class="container" >
-  <div class="row jumbotron p-4 p-md-5 text-black rounded bg-light border border-secondary">
+<div class="container">
+  <div class="row jumbotron p-4 p-md-5 text-black rounded bg-light">
     <div class="col-sm">
-      <br>
+      <br />
       <h1 class="display-4 font-weight-bold">Title: {{ movieDetail.Title }}</h1>
-      <br>
+      <br />
       <label class="label">Year: </label>{{ movieDetail.Year }}
-      <br>
+      <br />
       <label class="label"> Rated: </label>{{ movieDetail.Rated }}
-      <br>
-      <label >Released: </label>{{ movieDetail.Released }}
-      <br>
-      <label >Runtime: </label>{{ movieDetail.Runtime }}
-      <br>
-      <label>Genre: </label>{{ movieDetail.Genre }}
-      <br>
-      <label >Director: </label>{{ movieDetail.Director }}
-      <br>
-      <label >Writer: </label>{{ movieDetail.Writer }}
-      <br>
-      <label >Actors: </label>{{ movieDetail.Actors }}
-      <br>
-      <p >{{ movieDetail.Plot }}</p>
+      <br />
+      <label class="label">Released: </label>{{ movieDetail.Released }}
+      <br />
+      <label class="label">Runtime: </label>{{ movieDetail.Runtime }}
+      <br />
+      <label class="label">Genre: </label>{{ movieDetail.Genre }}
+      <br />
+      <label class="label">Director: </label>{{ movieDetail.Director }}
+      <br />
     </div>
     <div class="col-sm">
       <img
         [src]="movieDetail.Poster"
         alt="{{ movieDetail.Title }}"
         class="img-responsive"
-        style="max-height: 500px;"
-        />
+        style="max-height: 250px;"
+      />
+    </div>
+    <div class="container">
+      <div class="row jumbotron p-4 p-md-5 text-black" >
+        <label class="label">Writer: </label>{{ movieDetail.Writer }}
+        <br />
+        <label class="label">Actors: </label>{{ movieDetail.Actors }}
+        <br />
+        <p>{{ movieDetail.Plot }}</p>
+      </div>
+      <div class="row">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="onAddFavorites()"
+        >
+          Add favorites
+        </button>
+        |
+        <button type="button" class="btn btn-danger" (click)="onBack()">
+          Back
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row" *ngIf="isError">
+      <div class="col-md-12">
+        <app-alert
+          [message]="messageAlert"
+          (close)="onHandleAlert()"
+        ></app-alert>
+      </div>
     </div>
   </div>
 </div>
-
-
