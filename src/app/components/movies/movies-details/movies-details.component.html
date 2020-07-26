@@ -1,8 +1,36 @@
-<p>movies-details works!</p>
-<button
-              class="btn btn-success"
-              type="button"
-              (click)="onMovieSearch()"
-            >
-              search
-            </button>
+<div class="container" >
+  <div class="row jumbotron p-4 p-md-5 text-black rounded bg-light border border-secondary">
+    <div class="col-sm">
+      <br>
+      <h1 class="display-4 font-weight-bold">Title: {{ movieDetail.Title }}</h1>
+      <br>
+      <label class="label">Year: </label>{{ movieDetail.Year }}
+      <br>
+      <label class="label"> Rated: </label>{{ movieDetail.Rated }}
+      <br>
+      <label >Released: </label>{{ movieDetail.Released }}
+      <br>
+      <label >Runtime: </label>{{ movieDetail.Runtime }}
+      <br>
+      <label>Genre: </label>{{ movieDetail.Genre }}
+      <br>
+      <label >Director: </label>{{ movieDetail.Director }}
+      <br>
+      <label >Writer: </label>{{ movieDetail.Writer }}
+      <br>
+      <label >Actors: </label>{{ movieDetail.Actors }}
+      <br>
+      <p >{{ movieDetail.Plot }}</p>
+    </div>
+    <div class="col-sm">
+      <img
+        [src]="movieDetail.Poster"
+        alt="{{ movieDetail.Title }}"
+        class="img-responsive"
+        style="max-height: 500px;"
+        />
+    </div>
+  </div>
+</div>
+
+

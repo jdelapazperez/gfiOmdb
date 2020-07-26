@@ -17,9 +17,10 @@ export class MoviesComponent implements OnInit, OnDestroy {
   search: SearchModel;
   isLoading = false;
   isError = false;
-  searchObs: Observable<SearchResponse>;
+  messageError: string;
+  isVisibleGrid = false;
   searchField: string;
-
+  searchObs: Observable<SearchResponse>;
   private closeSub: Subscription;
 
   constructor(private moviesService: MoviesService, private router: Router) {}
@@ -51,33 +52,36 @@ export class MoviesComponent implements OnInit, OnDestroy {
     this.search = null;
   }
 
-  searchMovies(searchValue: string, pageValue: number){
-    this.isLoading = true;
+  searchMovies(searchValue: string, pageValue: number) {
+    console.log('searchMovies');
     this.searchObs = this.moviesService.searchMovies(searchValue, pageValue);
 
     this.closeSub = this.searchObs.subscribe(
       (resData) => {
+        console.log('resData');
+        console.log(resData);
         if (resData.Response === 'False') {
           this.isError = true;
-          this.search = new SearchModel(undefined, 0, 'False', resData.Error);
+          this.isVisibleGrid = false;
+          this.messageError = resData.Error;
+          console.log(this.messageError);
         } else {
-          // console.log('resData');
-          // console.log(resData);
           this.search = new SearchModel(
             resData.Search,
             resData.totalResults,
             resData.Response,
             resData.Error
           );
+          this.isVisibleGrid = true;
+          this.isError = false;
         }
-        this.isLoading = false;
       },
       (errorMessage) => {
-        // console.log('errorMessage');
-        // console.log(errorMessage);
+        console.log('errorMessage');
+        console.log(errorMessage);
         this.search = new SearchModel(undefined, 0, 'False', errorMessage);
         this.isError = true;
-        this.isLoading = false;
+        this.isVisibleGrid = false;
       }
     );
   }

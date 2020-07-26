@@ -11,7 +11,6 @@ import { AuthComponent } from './components/auth/auth.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MoviesListComponent } from './components/movies/movies-list/movies-list.component';
-import { MoviesItemComponent } from './components/movies/movies-item/movies-item.component';
 import { AlertComponent } from './shared/alert/alert.component';
 import { AuthInterceptor } from './components/auth/auth.interceptor';
 import { PaginationComponent } from './shared/pagination/pagination.component';
@@ -25,7 +24,6 @@ import { PaginationComponent } from './shared/pagination/pagination.component';
     FavoritesComponent,
     AuthComponent,
     MoviesListComponent,
-    MoviesItemComponent,
     AlertComponent,
     PaginationComponent
   ],

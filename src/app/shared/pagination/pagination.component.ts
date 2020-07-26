@@ -9,7 +9,7 @@ export class PaginationComponent implements OnInit {
   @Input() totalRecords = 0;
   @Input() recordsPerPage = 0;
   public pages: number[] = [];
-  activePage: number;
+  activePage = 0;
   @Output() onPageChange: EventEmitter<number> = new EventEmitter();
 
   constructor() {}

@@ -16,7 +16,9 @@ export class MoviesService {
 
   searchMovies(search: string, pageNumber: number) {
     return this.http
-      .get<SearchResponse>(environment.urlOmdbMovie + search + environment.urlPageAdd + pageNumber)
+      .get<SearchResponse>(
+        environment.urlOmdbMovie + search + environment.urlPageAdd + pageNumber
+      )
       .pipe(
         catchError(this.handleError),
         tap((resData) => {
@@ -27,17 +29,21 @@ export class MoviesService {
       );
   }
   searchMovieDetails(id: string) {
+    if (id === null) {
+      return throwError('Id movie not provide');
+    }
     return this.http
       .get<MovieDetailResponse>(environment.urlOmdbMovieDetail + id)
       .pipe(
         catchError(this.handleError),
         tap((respData) => {
-          // console.log('MoviesService::searchMovieDetails');
+          console.log('MoviesService::searchMovieDetails');
           // console.log(respData);
         })
       );
   }
   private handleError(errorRes: HttpErrorResponse) {
+    console.log('handleError');
     return throwError('An unknown error occurred!');
   }
 }

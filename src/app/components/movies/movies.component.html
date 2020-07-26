@@ -27,14 +27,19 @@
   </div>
 </div>
 <div class="contanier">
-  <div class="row" *ngIf="search">
+  <div class="row" *ngIf="isVisibleGrid">
     <div class="col-md-12">
-      <app-pagination [totalRecords]="search.totalResults" (onPageChange)="displayActivePage($event)"></app-pagination>
+      <app-pagination *ngIf="search.totalResults>0" [totalRecords]="search.totalResults" (onPageChange)="displayActivePage($event)"></app-pagination>
       <app-movies-list [searchResult]="search"></app-movies-list>
-      <app-pagination [totalRecords]="search.totalResults" (onPageChange)="displayActivePage($event)"></app-pagination>
+      <app-pagination *ngIf="search.totalResults>0" [totalRecords]="search.totalResults" (onPageChange)="displayActivePage($event)"></app-pagination>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row" *ngIf="isError">
+    <div class="col-md-12">
       <app-alert
-      [message]="search.Error"
-      *ngIf="isError"
+      [message]="messageError"
       (close)="onHandleError()"
     ></app-alert>
     </div>

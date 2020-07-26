@@ -1,27 +1,17 @@
-import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { MovieDetailResponse } from '../../../interfaces//movieDetailResponse';
+import { MovieDetailModel } from 'src/app/models/movie-detail.model';
 
 @Component({
   selector: 'app-movies-details',
   templateUrl: './movies-details.component.html',
-  styleUrls: ['./movies-details.component.sass']
+  styleUrls: ['./movies-details.component.sass'],
 })
-export class MoviesDetailsComponent implements OnInit, OnDestroy {
-  @Output() emitEvent:EventEmitter<boolean> = new EventEmitter<boolean>();
+export class MoviesDetailsComponent implements OnInit {
+  isError = false;
+  @Input() movieDetail: MovieDetailResponse;
 
-  constructor(private route: ActivatedRoute, private router: Router){}
+  constructor() {}
 
-  ngOnInit(): void {
-    // console.log('MoviesDetailsComponent');
-  }
-
-  ngOnDestroy() {
-    console.log('ngOnDestroy');
-    this.emitEvent.emit(true);
-  }
-
-  onMovieSearch() {
-    this.router.navigate(['/movies'], { relativeTo: this.route });
-  }
+  ngOnInit(): void {}
 }
