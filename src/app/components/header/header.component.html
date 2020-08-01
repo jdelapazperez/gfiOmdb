@@ -7,7 +7,7 @@
       <ul class="nav navbar-nav">
         <li routerLinkActive="active"><a class="nav-link" routerLink="/movies">Movies</a></li>
         <li routerLinkActive="active"><a class="nav-link" routerLink="/favorites">Favorites</a></li>
-        <li routerLinkActive="active"><a class="nav-link" style="cursor: pointer;" (click)="onLogout()">LogOut</a></li>
+        <li routerLinkActive="active"><a class="nav-link" style="cursor: pointer;" (click)="onLogout()">LogOut {{authResponse.email}}</a></li>
       </ul>
     </div>
   </div>

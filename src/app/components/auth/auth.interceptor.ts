@@ -12,9 +12,7 @@ import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 import { AuthService } from '../../services/auth.service';
 import { LoginModel } from '../../models/login.model';
 
-const users: LoginModel[] = [
-  new LoginModel('true', 'test@test.com', 'aaaaaa', 'jwt-de-andar-por-casa'),
-];
+const users: LoginModel[] = [];
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
