@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    if (localStorage.getItem('favorites') !== null){
+    if (localStorage.getItem('favorites' + this.authResponse.email) !== null){
       this.isFavoritesAdded = true;
     }
   }

@@ -1,21 +1,26 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 
 import { Favorites } from '../models/favorites.model';
 import { MovieDetailResponse } from '../interfaces/movieDetailResponse';
+import { AuthService } from '../services/auth.service';
+import { AuthResponse } from '../interfaces/AuthResponse';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FavoritesService {
   favorites: Favorites;
+  authSub: Subscription;
+  authResponse: AuthResponse;
 
-  constructor() {
+  constructor(private authService: AuthService) {
+    this.authSub = this.authService.user.subscribe(user => this.authResponse = user);
     this.getFavorites();
   }
 
   getFavorites(): Observable<Favorites> {
-    this.favorites = JSON.parse(localStorage.getItem('favorites'));
+    this.favorites = JSON.parse(localStorage.getItem('favorites' + this.authResponse.email));
     return of(this.favorites);
   }
 
@@ -23,15 +28,15 @@ export class FavoritesService {
     let items: MovieDetailResponse[] = [];
     let favorites: Favorites;
 
-    if (localStorage.getItem('favorites') === null) {
+    if (localStorage.getItem('favorites' + this.authResponse.email) === null) {
       items.push(movieDetailResponse);
       favorites = new Favorites();
       favorites.favoritesItems = items;
-      localStorage.setItem('favorites', JSON.stringify(favorites));
+      localStorage.setItem('favorites' + this.authResponse.email, JSON.stringify(favorites));
     } else {
-      favorites = JSON.parse(localStorage.getItem('favorites'));
+      favorites = JSON.parse(localStorage.getItem('favorites' + this.authResponse.email));
       favorites.favoritesItems.push(movieDetailResponse);
-      localStorage.setItem('favorites', JSON.stringify(favorites));
+      localStorage.setItem('favorites' + this.authResponse.email, JSON.stringify(favorites));
     }
     return true;
   }
@@ -51,10 +56,10 @@ export class FavoritesService {
       console.log(favorites);
     }
     if (itemsNumber === 1){
-      localStorage.removeItem('favorites');
+      localStorage.removeItem('favorites' + this.authResponse.email);
       console.log('Remove local');
     }else{
-      localStorage.setItem('favorites', JSON.stringify(favorites));
+      localStorage.setItem('favorites' + this.authResponse.email, JSON.stringify(favorites));
     }
     return true;
   }
