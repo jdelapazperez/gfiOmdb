@@ -48,8 +48,10 @@ export class AuthComponent implements OnInit {
           this.onSwitchMode();
         },
         (error) => {
-          // console.log('error onRegister');
-          // console.log(error);
+          console.log('error onRegister');
+          console.log(error);
+          this.errorMessage = error.error.message;
+          this.isError = true;
         }
       );
       authForm.reset();
