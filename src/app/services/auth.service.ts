@@ -22,12 +22,14 @@ export class AuthService {
   private userSubject: BehaviorSubject<AuthResponse>;
   public user: Observable<AuthResponse>;
 
-  public get userData(): AuthResponse{
+  public get userData(): AuthResponse {
     return this.userSubject.value;
   }
 
   constructor(private http: HttpClient, private router: Router) {
-    this.userSubject = new BehaviorSubject<AuthResponse>(JSON.parse(localStorage.getItem('user')));
+    this.userSubject = new BehaviorSubject<AuthResponse>(
+      JSON.parse(sessionStorage.getItem('user'))
+    );
     this.user = this.userSubject.asObservable();
   }
 
@@ -36,7 +38,7 @@ export class AuthService {
       .post<AuthResponse>(this.urlLogin, { email, pass }, httpOptions)
       .pipe(
         map((res) => {
-          localStorage.setItem('user', JSON.stringify(res));
+          sessionStorage.setItem('user', JSON.stringify(res));
           this.userSubject.next(res);
           return res;
         })
@@ -45,17 +47,17 @@ export class AuthService {
 
   onRegister(email: string, pass: string): Observable<any> {
     return this.http
-    .post<any>(this.urlRegister, {email, pass},httpOptions)
-    .pipe(
-      map(res => {
-        // this.userSubject.next(res);
-        return res;
-      })
-    );
+      .post<any>(this.urlRegister, { email, pass }, httpOptions)
+      .pipe(
+        map((res) => {
+          // this.userSubject.next(res);
+          return res;
+        })
+      );
   }
 
   onLogout() {
-    localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
     this.userSubject.next(null);
     this.router.navigate(['/login']);
   }

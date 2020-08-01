@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, OnDestroy, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnDestroy,
+  EventEmitter,
+  Output,
+} from '@angular/core';
 
 import { SearchModel } from '../../../models/search.model';
 import { MovieDetailResponse } from 'src/app/interfaces/movieDetailResponse';
@@ -30,6 +37,7 @@ export class MoviesListComponent implements OnInit, OnDestroy {
   constructor(private moviesService: MoviesService) {}
 
   ngOnInit() {
+    console.log('MoviesListComponent ngOnInit');
     if (this.searchResult.Response === 'True') {
       this.isTableVisible = true;
     } else {

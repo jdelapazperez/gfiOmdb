@@ -32,14 +32,26 @@
         <label class="label">Actors: </label>{{ movieDetail.Actors }}
         <br />
         <p>{{ movieDetail.Plot }}</p>
+        <br/>
+        <H4 *ngIf='isAddFavoritesPress'>Favorite Added</H4>
       </div>
       <div class="row">
         <button
           type="button"
           class="btn btn-primary"
           (click)="onAddFavorites()"
+          [disabled]='isAddFavoritesPress'
         >
           Add favorites
+        </button>
+        |
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="onRemoveFavorites()"
+          [disabled]='!isAddFavoritesPress'
+        >
+          remove favorites
         </button>
         |
         <button type="button" class="btn btn-danger" (click)="onBack()">

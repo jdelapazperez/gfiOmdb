@@ -29,7 +29,7 @@ export class AuthInterceptor implements HttpInterceptor {
     return of(null)
       .pipe(mergeMap(handleRoute))
       .pipe(materialize()) // call materialize and dematerialize to ensure delay even if an error is thrown (https://github.com/Reactive-Extensions/RxJS/issues/648)
-      .pipe(delay(500))
+      .pipe(delay(1000))
       .pipe(dematerialize());
 
     function handleRoute() {
@@ -40,12 +40,6 @@ export class AuthInterceptor implements HttpInterceptor {
           return register();
         case url.endsWith('/ApiServicice/login') && method === 'POST':
           return authenticate();
-        // case url.endsWith('/users') && method === 'GET':
-        //   return getUsers();
-        // case url.match(/\/users\/\d+$/) && method === 'GET':
-        //   return getUserById();
-        // case url.match(/\/users\/\d+$/) && method === 'DELETE':
-        //   return deleteUser();
         default:
           // pass through any requests not handled above
           return next.handle(request);
@@ -53,12 +47,10 @@ export class AuthInterceptor implements HttpInterceptor {
     }
     function register() {
       const user = body;
-      // if (users.find((x) => x.email !== user.email)) {
-      //   return error('Username "' + user.email + '" no exist');
-      // }
+      if (users.find((x) => x.email === user.email)) {
+        return error('Username "' + user.email + '" exist');
+      }
       users.push(user);
-      //localStorage.setItem('users', JSON.stringify(users));
-
       return ok();
     }
 

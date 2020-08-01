@@ -1,45 +1,37 @@
-<app-movies-details></app-movies-details>
-
-<!-- <div class="container" *ngIf="!isError">
-    <div class="row jumbotron p-4 p-md-5 text-black rounded bg-light border border-secondary">
-      <div class="col-sm">
-        <br>
-        <h1 class="display-4 font-weight-bold"> {{ movie.Title }}</h1>
-        <br>
-        <label>{{ movie.Year }}</label>
-        <br>
-        <label for="">{{ movie.Rated }}</label>
-        <br>
-        <label for="">{{ movie.Released }}</label>
-        <br>
-        <label for="">{{ movie.Runtime }}</label>
-        <br>
-        <label>{{ movie.Genre }}</label>
-        <br>
-        <label for="">{{ movie.Director }}</label>
-        <br>
-        <label for="">{{ movie.Writer }}</label>
-        <br>
-        <label for="">{{ movie.Actors }}</label>
-        <br>
-        <label for="">{{ movie.Plot }}</label>
+<div class="container">
+  <div class="card-deck" *ngIf="!isDetailVisible &&  isCardVisible">
+    <div class="card" *ngFor="let favoriteItem of favorites.favoritesItems">
+      <img class="card-img-top img-responsive" [src]="favoriteItem.Poster" alt="{{favoriteItem.Title}}"
+      style="max-height: 50%;">
+      <div class="card-body">
+        <h6 class="card-title">{{favoriteItem.Title}}</h6>
+        <button
+              class="btn btn-success"
+              type="button"
+              (click)="onMovieDetails(favoriteItem)"
+            >
+              Details
+            </button>
       </div>
-      <div class="col-sm">
-        <img
-          [src]="movie.Poster"
-          alt="{{ movie.Title }}"
-          class="img-responsive"
-          style="max-height: 500px;"
-          />
-      </div>
-    </div>
-</div>
-<div class="container" *ngIf="isError">
-  <div class="jumbotron p-4 p-md-5 text-black rounded">
-    <div class="col-md-12 px-0 text-center">
-      <br>
-      <h1 class="display-4 font-italic">You haven't a favorite movie.</h1>
     </div>
   </div>
-</div> -->
+  <div class="row" *ngIf="isDetailVisible">
+    <div class="col-md-12">
+      <app-movies-details
+        [movieDetail]="movieDetaileResponse"
+        (backEmiter)="onHandleBack()"
+      ></app-movies-details>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row" *ngIf="isError">
+    <div class="col-md-12">
+      <app-alert
+      [message]="messageError"
+      (close)="onHandleError()"
+    ></app-alert>
+    </div>
+  </div>
+</div>
 

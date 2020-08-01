@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { MoviesComponent } from './components/movies/movies.component';
 import { FavoritesComponent } from './components/favorites/favorites.component';
-import { MoviesDetailsComponent } from './components/movies/movies-details/movies-details.component';
 import { AuthGuard } from './components/auth/auth.guard';
 import { AuthComponent } from './components/auth/auth.component';
 
