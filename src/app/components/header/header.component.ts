@@ -10,7 +10,7 @@ import { ThrowStmt } from '@angular/compiler';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.sass']
+  styleUrls: ['./header.component.sass'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   authResponse: AuthResponse;
@@ -19,16 +19,29 @@ export class HeaderComponent implements OnInit, OnDestroy {
   authSub: Subscription;
   favoritesSub: Subscription;
 
-  constructor(private authService: AuthService, private favoritesService: FavoritesService) {
+  constructor(
+    private authService: AuthService,
+    private favoritesService: FavoritesService
+  ) {
     console.log('HeaderComponent::constructor');
-    this.authSub = this.authService.user.subscribe(user => this.authResponse = user);
-    this.favoritesSub = this.favoritesService.getFavorites().subscribe(favorites => this.favorites = favorites);
+    this.authSub = this.authService.user.subscribe(
+      (user) => (this.authResponse = user)
+    );
+    if (this.authResponse !== null) {
+      this.favoritesSub = this.favoritesService
+        .getFavorites()
+        .subscribe((favorites) => (this.favorites = favorites));
+    }
     console.log(this.favorites);
   }
 
   ngOnInit(): void {
-    if (localStorage.getItem('favorites' + this.authResponse.email) !== null){
-      this.isFavoritesAdded = true;
+    if (this.authResponse !== null) {
+      if (
+        localStorage.getItem('favorites' + this.authResponse.email) !== null
+      ) {
+        this.isFavoritesAdded = true;
+      }
     }
   }
 
@@ -38,7 +51,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onLogout() {
-      this.authService.onLogout();
+    this.authService.onLogout();
   }
-
 }

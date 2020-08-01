@@ -15,13 +15,19 @@ export class FavoritesService {
   authResponse: AuthResponse;
 
   constructor(private authService: AuthService) {
-    this.authSub = this.authService.user.subscribe(user => this.authResponse = user);
+    this.authSub = this.authService.user.subscribe(
+      (user) => (this.authResponse = user)
+    );
     this.getFavorites();
   }
 
   getFavorites(): Observable<Favorites> {
-    this.favorites = JSON.parse(localStorage.getItem('favorites' + this.authResponse.email));
-    return of(this.favorites);
+    if (this.authResponse !== null) {
+      this.favorites = JSON.parse(
+        localStorage.getItem('favorites' + this.authResponse.email)
+      );
+      return of(this.favorites);
+    }
   }
 
   putFavorites(movieDetailResponse: MovieDetailResponse): boolean {
@@ -32,11 +38,19 @@ export class FavoritesService {
       items.push(movieDetailResponse);
       favorites = new Favorites();
       favorites.favoritesItems = items;
-      localStorage.setItem('favorites' + this.authResponse.email, JSON.stringify(favorites));
+      localStorage.setItem(
+        'favorites' + this.authResponse.email,
+        JSON.stringify(favorites)
+      );
     } else {
-      favorites = JSON.parse(localStorage.getItem('favorites' + this.authResponse.email));
+      favorites = JSON.parse(
+        localStorage.getItem('favorites' + this.authResponse.email)
+      );
       favorites.favoritesItems.push(movieDetailResponse);
-      localStorage.setItem('favorites' + this.authResponse.email, JSON.stringify(favorites));
+      localStorage.setItem(
+        'favorites' + this.authResponse.email,
+        JSON.stringify(favorites)
+      );
     }
     return true;
   }
@@ -45,22 +59,29 @@ export class FavoritesService {
     console.log('FavoritesService::deleteFavorites');
     let items: MovieDetailResponse[] = [];
     let favorites: Favorites;
-    const itemsNumber = this.favorites.favoritesItems.length;
-    favorites = new Favorites();
-    for (let item of this.favorites.favoritesItems) {
-      if (item.imdbID !== movieDetailResponse.imdbID) {
-        console.log('Encontrado');
-        items.push(item);
-        favorites.favoritesItems = items;
+    let itemsNumber = 0;
+    this.getFavorites();
+    if (this.favorites !== null) {
+      itemsNumber = this.favorites.favoritesItems.length;
+      favorites = new Favorites();
+      for (let item of this.favorites.favoritesItems) {
+        if (item.imdbID !== movieDetailResponse.imdbID) {
+          items.push(item);
+          favorites.favoritesItems = items;
+        }
+        console.log(favorites);
       }
-      console.log(favorites);
+      if (itemsNumber === 1) {
+        localStorage.removeItem('favorites' + this.authResponse.email);
+        console.log('Remove local');
+      } else {
+        localStorage.setItem(
+          'favorites' + this.authResponse.email,
+          JSON.stringify(favorites)
+        );
+      }
     }
-    if (itemsNumber === 1){
-      localStorage.removeItem('favorites' + this.authResponse.email);
-      console.log('Remove local');
-    }else{
-      localStorage.setItem('favorites' + this.authResponse.email, JSON.stringify(favorites));
-    }
+
     return true;
   }
 
