@@ -56,7 +56,6 @@ export class FavoritesService {
   }
 
   deleteFavorites(movieDetailResponse: MovieDetailResponse): boolean {
-    console.log('FavoritesService::deleteFavorites');
     let items: MovieDetailResponse[] = [];
     let favorites: Favorites;
     let itemsNumber = 0;
@@ -69,11 +68,9 @@ export class FavoritesService {
           items.push(item);
           favorites.favoritesItems = items;
         }
-        console.log(favorites);
       }
       if (itemsNumber === 1) {
         localStorage.removeItem('favorites' + this.authResponse.email);
-        console.log('Remove local');
       } else {
         localStorage.setItem(
           'favorites' + this.authResponse.email,
@@ -86,10 +83,6 @@ export class FavoritesService {
   }
 
   existsItemFavorite(imdbID: string) {
-    console.log('FavoritesService::existsItemFavorite');
-    console.log(this.favorites);
-    console.log('FavoritesService::existsItemFavorite_2');
-    console.log(imdbID);
     if (!this.favorites) {
       return false;
     }

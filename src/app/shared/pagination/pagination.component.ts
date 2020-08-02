@@ -48,8 +48,6 @@ export class PaginationComponent implements OnInit {
   }
 
   onClickPage(pageNumber: number) {
-    // console.log('onClickPage');
-    // console.log(pageNumber);
     if (pageNumber < 1) return;
     if (pageNumber > this.pages.length) return;
     this.activePage = pageNumber;

@@ -36,8 +36,6 @@ export class AuthComponent implements OnInit {
           this.router.navigate(['/']);
         },
         (error) => {
-          // console.log('error onLogin');
-          // console.log(error);
           this.isError = true;
           this.errorMessage = error.error.message;
         }
@@ -45,11 +43,11 @@ export class AuthComponent implements OnInit {
     } else {
       this.authService.onRegister(email, pass).subscribe(
         (res) => {
+          this.errorMessage = email + ' sign up successfully';
+          this.isError = true;
           this.onSwitchMode();
         },
         (error) => {
-          console.log('error onRegister');
-          console.log(error);
           this.errorMessage = error.error.message;
           this.isError = true;
         }

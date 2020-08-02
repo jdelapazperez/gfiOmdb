@@ -40,8 +40,6 @@ export class MoviesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // console.log('ngOnDestroy');
-    // console.log(this.closeSub);
     if (this.closeSub) {
       this.closeSub.unsubscribe();
     }
@@ -53,13 +51,10 @@ export class MoviesComponent implements OnInit, OnDestroy {
   }
 
   searchMovies(searchValue: string, pageValue: number) {
-    console.log('searchMovies');
     this.searchObs = this.moviesService.searchMovies(searchValue, pageValue);
 
     this.closeSub = this.searchObs.subscribe(
       (resData) => {
-        console.log('resData');
-        console.log(resData);
         if (resData.Response === 'False') {
           this.isError = true;
           this.isVisibleGrid = false;
@@ -76,8 +71,6 @@ export class MoviesComponent implements OnInit, OnDestroy {
         }
       },
       (errorMessage) => {
-        console.log('errorMessage');
-        console.log(errorMessage);
         this.messageError = errorMessage;
         this.isError = true;
         this.isVisibleGrid = false;
@@ -86,8 +79,6 @@ export class MoviesComponent implements OnInit, OnDestroy {
   }
 
   displayActivePage(activePageNumber: number) {
-    // console.log('displayActivePage');
-    // console.log(activePageNumber);
     this.activePage = activePageNumber;
     this.searchMovies(this.searchField, activePageNumber);
   }

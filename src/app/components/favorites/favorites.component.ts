@@ -21,16 +21,13 @@ export class FavoritesComponent implements OnInit, OnDestroy {
   movieDetaileResponse: MovieDetailResponse;
 
   constructor(private favoritesService: FavoritesService, private router: Router) {
-    console.log('FavoritesComponent constructor');
   }
 
   ngOnInit(): void {
-    console.log('FavoritesComponent ngOnInit');
     this.updateFavoritesData();
   }
 
   ngOnDestroy(): void {
-    console.log('FavoritesComponent::ngOnDestroy');
   }
 
   onMovieDetails(favoriteItem: MovieDetailResponse) {
@@ -39,7 +36,6 @@ export class FavoritesComponent implements OnInit, OnDestroy {
   }
 
   onHandleBack() {
-    console.log('FavoritesComponent::onHandleBack');
     this.isDetailVisible = false;
     this.updateFavoritesData();
   }
@@ -48,7 +44,6 @@ export class FavoritesComponent implements OnInit, OnDestroy {
     this.favoritesSub = this.favoritesService
       .getFavorites()
       .subscribe((favorites) => (this.favorites = favorites));
-    console.log(this.favorites);
     if (this.favorites) {
       this.isCardVisible = true;
     } else {

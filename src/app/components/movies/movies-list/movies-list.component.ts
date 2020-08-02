@@ -37,7 +37,6 @@ export class MoviesListComponent implements OnInit, OnDestroy {
   constructor(private moviesService: MoviesService) {}
 
   ngOnInit() {
-    console.log('MoviesListComponent ngOnInit');
     if (this.searchResult.Response === 'True') {
       this.isTableVisible = true;
     } else {
@@ -56,13 +55,10 @@ export class MoviesListComponent implements OnInit, OnDestroy {
     this.closeSub = this.movieDetailObs.subscribe(
       (resData) => {
         this.movieDetailResponse = resData;
-        console.log('movieDetailResponse' + imdbID);
-        console.log(this.movieDetailResponse);
         this.isError = false;
         this.isDetailVisible = true;
       },
       (errorMessage) => {
-        console.log(errorMessage);
         this.isError = true;
         this.isDetailVisible = false;
       }
@@ -75,13 +71,10 @@ export class MoviesListComponent implements OnInit, OnDestroy {
   }
 
   searchMovies(searchValue: string, pageValue: number) {
-    console.log('searchMovies');
     this.searchObs = this.moviesService.searchMovies(searchValue, pageValue);
 
     this.closeSub = this.searchObs.subscribe(
       (resData) => {
-        console.log('resData');
-        console.log(resData);
         if (resData.Response === 'False') {
           this.isError = true;
           // this.isVisibleGrid = false;
@@ -97,8 +90,6 @@ export class MoviesListComponent implements OnInit, OnDestroy {
         }
       },
       (errorMessage) => {
-        console.log('errorMessage');
-        console.log(errorMessage);
         // this.messageError = errorMessage;
         this.isError = true;
         // this.isVisibleGrid = false;
@@ -107,7 +98,6 @@ export class MoviesListComponent implements OnInit, OnDestroy {
   }
 
   onHandleBack() {
-    console.log('onHandleBack');
     this.isDetailVisible = false;
     this.isTableVisible = true;
   }

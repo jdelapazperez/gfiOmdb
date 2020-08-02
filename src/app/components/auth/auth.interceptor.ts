@@ -31,8 +31,6 @@ export class AuthInterceptor implements HttpInterceptor {
       .pipe(dematerialize());
 
     function handleRoute() {
-      // console.log('handleRoute');
-      // console.log(url);
       switch (true) {
         case url.endsWith('/ApiServicice/register') && method === 'POST':
           return register();
@@ -74,8 +72,6 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     function error(message) {
-      // console.log('error');
-      // console.log(message);
       return throwError({ error: { message } });
     }
   }

@@ -29,7 +29,6 @@ export class MoviesDetailsComponent implements OnInit, OnDestroy {
   constructor(private favoritesService: FavoritesService) {}
 
   ngOnInit(): void {
-    console.log('MoviesDetailsComponent::ngOnInit');
     this.isAddFavoritesPress = false;
 
     this.favoritesSub = this.favoritesService
@@ -42,17 +41,14 @@ export class MoviesDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log('MoviesDetailsComponent::ngOnDestroy');
     this.favoritesSub.unsubscribe();
   }
 
   onBack() {
-    console.log('MoviesDetailsComponent::onBack');
     this.backEmiter.emit();
   }
 
   onAddFavorites() {
-    console.log('MoviesDetailsComponent::onAddFavorites');
     this.isAddFavoritesPress = true;
 
     this.isError = this.favoritesService.putFavorites(this.movieDetail);
@@ -66,13 +62,11 @@ export class MoviesDetailsComponent implements OnInit, OnDestroy {
   }
 
   onHandleAlert() {
-    console.log('MoviesDetailsComponent::onHandleAlert');
     this.isError = false;
     this.messageAlert = null;
   }
 
   onRemoveFavorites() {
-    console.log('MoviesDetailsComponent::onRemoveFavorites');
     this.isAddFavoritesPress = false;
 
     this.isError = this.favoritesService.deleteFavorites(this.movieDetail);

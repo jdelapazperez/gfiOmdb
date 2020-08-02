@@ -15,9 +15,6 @@ export class MoviesService {
   constructor(private http: HttpClient) {}
 
   searchMovies(search: string, pageNumber: number) {
-    console.log('MoviesService searchMovies');
-    console.log(search);
-    console.log(pageNumber);
 
     return this.http
       .get<SearchResponse>(
@@ -26,8 +23,6 @@ export class MoviesService {
       .pipe(
         catchError(this.handleError),
         tap((resData) => {
-          console.log('MoviesService::searchMovies');
-          console.log(resData);
           resData.lastSearch = search;
         })
       );
@@ -41,13 +36,10 @@ export class MoviesService {
       .pipe(
         catchError(this.handleError),
         tap((respData) => {
-          console.log('MoviesService::searchMovieDetails');
-          console.log(respData);
         })
       );
   }
   private handleError(errorRes: HttpErrorResponse) {
-    console.log('handleError');
     return throwError('An unknown error occurred!');
   }
 }

@@ -23,7 +23,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private favoritesService: FavoritesService
   ) {
-    console.log('HeaderComponent::constructor');
     this.authSub = this.authService.user.subscribe(
       (user) => (this.authResponse = user)
     );
@@ -32,7 +31,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         .getFavorites()
         .subscribe((favorites) => (this.favorites = favorites));
     }
-    console.log(this.favorites);
   }
 
   ngOnInit(): void {
